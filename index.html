@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>捷元WMS</title>
+
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/LX3ZDKyq/J-south.png">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <style>
+        body {
+            background-color: #f4f6f9; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            height: 100vh; margin: 0; font-family: -apple-system, sans-serif; text-align: center;
+        }
+        .splash-spinner {
+            width: 40px; height: 40px; border: 3px solid rgba(146, 172, 209, 0.3); 
+            border-top-color: #92acd1; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* 提示安裝的文字樣式 */
+        .install-msg { color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; }
+        .install-btn { background: #1a73e8; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+    </style>
+
+    <script>
+        // 🔥 請把下面這串換成你真正的 Google Apps Script 網址 🔥
+        const gasUrl = "https://script.google.com/macros/s/AKfycbz7JILdEj3U2bt_HCO8HolrVo0J_hHTj1D1ciN-h83A3BVfU6gTLUgFiPUn9xfPI0jWCw/exec?region=south";
+
+        // 🧠 核心智慧判斷：檢查是否是從「桌面圖示」啟動的
+        if (window.navigator.standalone === true) {
+            // 如果是從桌面點開的 -> 0秒瞬間跳轉
+            window.location.replace(gasUrl);
+        }
+    </script>
+</head>
+<body>
+
+    <div id="loading-screen" style="display:none;">
+        <div class="splash-spinner"></div>
+        <div style="font-size: 15px; font-weight: 600; color: #92acd1; letter-spacing: 1px;">系統啟動中...</div>
+    </div>
+
+    <div id="install-screen">
+        <div class="install-msg">
+            <span style="font-size: 40px; display: block; margin-bottom: 10px;">📦</span>
+            請點擊下方分享按鈕<br>
+            選擇 <b>「加入主畫面」</b><br>
+            以獲得最佳的 App 體驗
+        </div>
+        <a href="https://script.google.com/macros/s/你的部署ID/exec" class="install-btn" id="manual-link">直接進入系統</a>
+    </div>
+
+    <script>
+        // 替換備用按鈕的連結
+        document.getElementById('manual-link').href = gasUrl;
+
+        // UI 切換邏輯
+        if (window.navigator.standalone === true) {
+            // 桌面模式：隱藏安裝提示，顯示轉圈圈
+            document.getElementById('install-screen').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
